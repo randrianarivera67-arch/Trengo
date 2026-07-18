@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="mg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trengo — Ny tambajotra mifandray sy mampifandray Malagasy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7C3AED;
+    --purple-dark:#5B21B6;
+    --pink:#EC4899;
+    --pink-light:#F472B6;
+    --blue:#4F46E5;
+    --brand-blue:#2E5BFF;
+    --brand-pink:#F0308C;
+    --ink:#1E1533;
+    --ink-soft:#4B4460;
+    --muted:#6B7280;
+    --cloud:#F7F5FC;
+    --line:#ECE8F5;
+    --white:#ffffff;
+    --grad-brand:linear-gradient(120deg,var(--brand-blue) 0%,var(--purple) 52%,var(--brand-pink) 100%);
+    --grad-section:linear-gradient(135deg,#4338CA 0%,#6D28D9 55%,#7C3AED 100%);
+    --grad-cta:radial-gradient(circle at 20% 20%,#3B2E6B 0%,#1B1030 55%,#120A22 100%);
+    --shadow-soft:0 10px 30px -12px rgba(124,58,237,.28);
+    --shadow-card:0 4px 18px rgba(30,21,51,.06);
+    --radius:20px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Manrope","Segoe UI",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:"Sora",system-ui,sans-serif; margin:0; letter-spacing:-0.02em;}
+  p{margin:0;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;margin:0;padding:0;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .container{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.16,.8,.28,1), transform .7s cubic-bezier(.16,.8,.28,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.08s;}
+  .reveal-delay-2{transition-delay:.16s;}
+  .reveal-delay-3{transition-delay:.24s;}
+  .reveal-delay-4{transition-delay:.32s;}
+  .reveal-delay-5{transition-delay:.4s;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px;}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:22px;flex-shrink:0;}
+  .logo-mark{
+    width:38px;height:38px;object-fit:contain;
+    filter:drop-shadow(0 4px 10px rgba(124,58,237,.35));
+    transition:transform .4s cubic-bezier(.16,.8,.28,1);
+  }
+  .logo:hover .logo-mark{transform:rotate(-8deg) scale(1.06);}
+  .logo-text{font-family:"Sora",system-ui,sans-serif;}
+  .logo-text .tren{color:var(--brand-blue);}
+  .logo-text .go{color:var(--brand-pink);}
+  .navlinks{
+    display:flex;align-items:center;gap:36px;
+    overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .navlinks::-webkit-scrollbar{display:none;}
+  .navlinks a{
+    font-size:15px;font-weight:600;color:var(--ink-soft);
+    position:relative; padding:6px 0; flex-shrink:0;
+    transition:color .25s ease;
+  }
+  .navlinks a::after{
+    content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;
+    background:var(--grad-brand);transition:width .3s ease;border-radius:2px;
+  }
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a.active{color:var(--purple);}
+  .navlinks a.active::after{width:100%;}
+
+  .nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+  .lang-toggle{
+    display:flex;align-items:center;background:var(--cloud);
+    border:1px solid var(--line); border-radius:999px; padding:4px; gap:2px;
+  }
+  .lang-toggle button{
+    padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;
+    color:var(--muted); transition:all .3s cubic-bezier(.16,.8,.28,1);
+  }
+  .lang-toggle button.on{background:var(--grad-brand);color:#fff;box-shadow:var(--shadow-soft);}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:15px 28px;border-radius:999px;font-weight:700;font-size:15px;
+    transition:transform .35s cubic-bezier(.16,.8,.28,1), box-shadow .35s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--grad-brand);color:#fff;box-shadow:var(--shadow-soft);
+    position:relative; overflow:hidden;
+  }
+  .btn-primary::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(120deg,var(--brand-pink) 0%,var(--purple) 50%,var(--brand-blue) 100%);
+    opacity:0; transition:opacity .35s ease;
+  }
+  .btn-primary::after{
+    content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
+    transform:skewX(-20deg);transition:left .65s cubic-bezier(.16,.8,.28,1);z-index:2;
+  }
+  .btn-primary span{position:relative;z-index:1;display:flex;align-items:center;gap:8px;}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 34px -10px rgba(124,58,237,.45);}
+  .btn-primary:hover::before{opacity:1;}
+  .btn-primary:hover::after{left:130%;}
+  .btn-primary:active{transform:translateY(-1px) scale(.98);}
+
+  .btn-outline{
+    border:1.5px solid #E4DBF7;color:var(--ink);background:#fff;
+  }
+  .btn-outline:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-3px);box-shadow:0 10px 24px -12px rgba(124,58,237,.3);}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:88px 0 60px;overflow:hidden;}
+  .hero-blob{
+    position:absolute;border-radius:50%;filter:blur(6px);
+    background:radial-gradient(circle,rgba(236,72,153,.16),rgba(124,58,237,.10) 60%,transparent 75%);
+    width:640px;height:640px;top:-160px;right:-140px;z-index:0;
+    animation:float-slow 9s ease-in-out infinite;
+  }
+  @keyframes float-slow{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-22px) scale(1.03);}}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;position:relative;z-index:1;}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 16px;border-radius:999px;background:#F3ECFC;color:var(--purple);
+    font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pink);}
+
+  .hero h1{font-size:47px;line-height:1.14;font-weight:800;color:var(--ink);margin-bottom:22px;}
+  .hero h1 .grad{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p.lead{font-size:17px;line-height:1.7;color:var(--ink-soft);max-width:480px;margin-bottom:34px;}
+  .hero-actions{display:flex;gap:16px;margin-bottom:44px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:34px;flex-wrap:wrap;}
+  .hstat{display:flex;align-items:center;gap:10px;}
+  .hstat .ic{
+    width:38px;height:38px;border-radius:11px;background:#F3ECFC;color:var(--purple);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .hstat b{display:block;font-size:14px;color:var(--ink);font-weight:700;}
+  .hstat small{display:block;font-size:12.5px;color:var(--muted);}
+
+  /* ---------- phone mockups ---------- */
+  .phones{position:relative;height:560px;display:flex;align-items:center;justify-content:center;}
+  .phone{
+    position:absolute;width:250px;border-radius:34px;background:#0d0d16;
+    padding:10px;box-shadow:0 30px 60px -18px rgba(30,21,51,.4);
+    transition:transform .5s cubic-bezier(.16,.8,.28,1);
+  }
+  .phone-screen{
+    width:100%;height:520px;border-radius:24px;overflow:hidden;background:#fff;
+    position:relative;
+  }
+  .phone-screen img{width:100%;height:100%;object-fit:cover;object-position:top;}
+  .phone-back{left:6%;top:0;z-index:1;transform:rotate(-6deg);}
+  .phone-front{right:2%;bottom:-10px;z-index:2;transform:rotate(4deg);width:270px;}
+  .phone-front .phone-screen{height:560px;}
+  .phones:hover .phone-back{transform:rotate(-10deg) translateX(-10px);}
+  .phones:hover .phone-front{transform:rotate(7deg) translateX(10px);}
+
+  .float-badge{
+    position:absolute;width:64px;height:64px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 12px 26px -8px rgba(30,21,51,.3);
+    z-index:3; animation:bob 4.5s ease-in-out infinite;
+  }
+  .fb-heart{background:#fff;color:var(--pink);top:6%;left:-4%;}
+  .fb-like{background:var(--blue);color:#fff;bottom:12%;right:-6%;animation-delay:1.2s;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+  /* ---------- features section ---------- */
+  .features{background:var(--grad-section);padding:96px 0;position:relative;overflow:hidden;}
+  .features::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle,rgba(255,255,255,.14) 1.5px,transparent 1.5px);
+    background-size:26px 26px; opacity:.4;
+  }
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 56px;position:relative;z-index:1;}
+  .sec-head h2{font-size:33px;color:#fff;font-weight:800;margin-bottom:12px;}
+  .sec-head p{color:rgba(255,255,255,.78);font-size:15.5px;}
+  .sec-head.dark h2{color:var(--ink);}
+  .sec-head.dark p{color:var(--muted);}
+
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;z-index:1;}
+  .feat-card{
+    background:#fff;border-radius:var(--radius);padding:34px 28px;
+    box-shadow:var(--shadow-card);
+    position:relative;isolation:isolate;
+    transition:transform .45s cubic-bezier(.16,.8,.28,1), box-shadow .45s ease;
+  }
+  .feat-card::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+    background:var(--grad-brand);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    opacity:0;transition:opacity .45s ease;pointer-events:none;z-index:-1;
+  }
+  .feat-card:hover{transform:translateY(-8px);box-shadow:0 24px 46px -16px rgba(20,10,40,.28);}
+  .feat-card:hover::after{opacity:1;}
+  .feat-ic{
+    width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px; color:#fff;
+    transition:transform .4s cubic-bezier(.16,.8,.28,1), box-shadow .4s ease;
+  }
+  .feat-card:hover .feat-ic{transform:scale(1.1) rotate(-4deg);}
+  .feat-card h3{font-size:17px;margin-bottom:8px;}
+  .feat-card p{font-size:13.5px;color:var(--muted);line-height:1.6;}
+
+  .ic-1{background:linear-gradient(135deg,#8B5CF6,#6D28D9);box-shadow:0 10px 22px -8px rgba(124,58,237,.5);}
+  .ic-2{background:linear-gradient(135deg,#EC4899,#DB2777);box-shadow:0 10px 22px -8px rgba(219,39,119,.5);}
+  .ic-3{background:linear-gradient(135deg,#F59E0B,#D97706);box-shadow:0 10px 22px -8px rgba(217,119,6,.5);}
+  .ic-4{background:linear-gradient(135deg,#6366F1,#4F46E5);box-shadow:0 10px 22px -8px rgba(79,70,229,.5);}
+  .ic-5{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 10px 22px -8px rgba(37,99,235,.5);}
+  .ic-6{background:linear-gradient(135deg,#059669,#047857);box-shadow:0 10px 22px -8px rgba(4,120,87,.5);}
+
+  /* ---------- how it works ---------- */
+  .how{padding:100px 0;}
+  .steps{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;
+  }
+  .steps::before{
+    content:"";position:absolute;top:34px;left:10%;right:10%;height:2px;
+    background-image:repeating-linear-gradient(90deg,#D9CDF5 0,#D9CDF5 8px,transparent 8px,transparent 16px);
+  }
+  .step{text-align:center;padding:0 10px;position:relative;}
+  .step-num{
+    width:68px;height:68px;border-radius:50%;background:#fff;border:2px solid #EDE4FB;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;z-index:1;
+    color:var(--purple); transition:transform .4s cubic-bezier(.16,.8,.28,1), background .4s ease, border-color .4s ease;
+  }
+  .step:hover .step-num{background:var(--grad-brand);border-color:transparent;color:#fff;transform:scale(1.08);}
+  .step-tag{
+    position:absolute;top:-6px;right:calc(50% - 44px);
+    width:24px;height:24px;border-radius:50%;background:var(--pink);color:#fff;
+    font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:2;
+  }
+  .step h3{font-size:15px;margin-bottom:8px;}
+  .step p{font-size:12.5px;color:var(--muted);line-height:1.6;}
+
+  /* ---------- CTA ---------- */
+  .cta{background:var(--grad-cta);padding:100px 0;position:relative;overflow:hidden;}
+  .cta::before{
+    content:"";position:absolute;inset:0;background-image:
+      radial-gradient(2px 2px at 20% 30%, #fff 0, transparent 100%),
+      radial-gradient(1.5px 1.5px at 70% 20%, #fff 0, transparent 100%),
+      radial-gradient(2px 2px at 40% 70%, #fff 0, transparent 100%),
+      radial-gradient(1.5px 1.5px at 85% 65%, #fff 0, transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 45%, #fff 0, transparent 100%),
+      radial-gradient(2px 2px at 12% 80%, #fff 0, transparent 100%);
+    opacity:.5;
+  }
+  .cta-grid{display:grid;grid-template-columns:.7fr 1.3fr .7fr;gap:40px;align-items:center;position:relative;z-index:1;}
+  .cta-phone{
+    width:180px;border-radius:30px;background:#0d0d16;padding:8px;margin:0 auto;
+    box-shadow:0 30px 60px -14px rgba(0,0,0,.6);
+    animation:float-slow 7s ease-in-out infinite;
+  }
+  .cta-phone .scr{width:100%;height:340px;border-radius:22px;background:var(--grad-brand);display:flex;align-items:center;justify-content:center;}
+  .cta-text{text-align:center;}
+  .cta-text h2{color:#fff;font-size:32px;font-weight:800;margin-bottom:14px;}
+  .cta-text p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:30px;line-height:1.7;}
+  .cta-text .btn-primary{margin:0 auto;}
+  .cta-version{margin-top:20px;color:rgba(255,255,255,.5);font-size:12.5px;}
+  .qr-box{
+    background:#fff;border-radius:18px;padding:18px;width:150px;margin:0 auto;text-align:center;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.5);
+  }
+  .qr-box img{border-radius:8px;margin-bottom:10px;}
+  .qr-box span{font-size:11.5px;color:var(--muted);font-weight:600;}
+
+  /* ---------- footer ---------- */
+  footer{background:#0F0B1D;color:#fff;padding:70px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1.4fr;gap:32px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .foot-brand p{color:rgba(255,255,255,.55);font-size:13.5px;line-height:1.7;margin:16px 0 20px;max-width:240px;}
+  .social{display:flex;gap:10px;}
+  .social a{
+    width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    transition:all .3s cubic-bezier(.16,.8,.28,1);
+  }
+  .social a:hover{background:var(--grad-brand);transform:translateY(-3px);}
+  .foot-col h4{font-size:13.5px;margin-bottom:18px;color:#fff;font-weight:700;}
+  .foot-col a{display:block;color:rgba(255,255,255,.55);font-size:13.5px;margin-bottom:12px;transition:color .25s;}
+  .foot-col a:hover{color:var(--pink-light);}
+  .news p{color:rgba(255,255,255,.55);font-size:13.5px;margin-bottom:16px;}
+  .news-form{display:flex;background:rgba(255,255,255,.06);border-radius:999px;padding:5px;}
+  .news-form input{
+    flex:1;background:none;border:none;padding:10px 14px;color:#fff;font-size:13px;outline:none;
+  }
+  .news-form input::placeholder{color:rgba(255,255,255,.4);}
+  .news-form button{
+    background:var(--grad-brand);color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;font-weight:700;
+    transition:transform .3s ease;
+  }
+  .news-form button:hover{transform:scale(1.05);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;flex-wrap:wrap;gap:12px;}
+  .foot-bottom p{color:rgba(255,255,255,.4);font-size:12.5px;}
+  .foot-bottom .links{display:flex;gap:22px;}
+  .foot-bottom .links a{color:rgba(255,255,255,.4);font-size:12.5px;}
+  .foot-bottom .links a:hover{color:#fff;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .phones{height:420px;margin-top:20px;}
+    .phone{width:200px;}
+    .phone-screen{height:420px;}
+    .phone-front{width:220px;}
+    .phone-front .phone-screen{height:456px;}
+    .feat-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:repeat(5,1fr);gap:10px;}
+    .steps::before{display:none;}
+    .cta-grid{grid-template-columns:1fr;}
+    .cta-phone,.qr-box{margin-bottom:10px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:720px){
+    .container{padding:0 20px;}
+    .nav{flex-wrap:wrap;height:auto;padding:14px 0;row-gap:12px;}
+    .logo{order:1;}
+    .nav-right{order:2;}
+    .navlinks{order:3;width:100%;gap:24px;font-size:14px;}
+    .hero{padding:40px 0 40px;}
+    .hero h1{font-size:33px;}
+    .hero-stats{gap:20px;}
+    .feat-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;gap:28px;}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:24px;}
+    .foot-bottom{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">
+      <img class="logo-mark" src="assets/logo.png" alt="Trengo">
+      <span class="logo-text"><span class="tren">Tren</span><span class="go">go</span></span>
+    </a>
+    <nav class="navlinks">
+      <a href="#" class="active" data-i18n="nav.home">Fandraisana</a>
+      <a href="#about" data-i18n="nav.about">Momba anay</a>
+      <a href="#features" data-i18n="nav.features">Fahasarobana</a>
+      <a href="#download" data-i18n="nav.download">Alaina</a>
+      <a href="#help" data-i18n="nav.help">Fanampiana</a>
+      <a href="#contact" data-i18n="nav.contact">Mifandray</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle" role="group" aria-label="Fiteny / Langue">
+        <button type="button" class="on" data-lang="mg">MG</button>
+        <button type="button" data-lang="fr">FR</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow reveal in" data-i18n="hero.eyebrow">Tambajotra sosialy Malagasy</span>
+      <h1 class="reveal in reveal-delay-1">
+        <span data-i18n="hero.title1">Trengo, ny tambajotra</span><br>
+        <span class="grad" data-i18n="hero.title2">mifandray sy mampifandray</span><br>
+        <span data-i18n="hero.title3">Malagasy.</span>
+      </h1>
+      <p class="lead reveal in reveal-delay-2" data-i18n="hero.lead">
+        Trengo dia sehatra iray ahafahan'ny Malagasy mifampizara, mifandray, mivarotra, ary mifanohana amin'ny fomba tsotra sy azo antoka.
+      </p>
+      <div class="hero-actions reveal in reveal-delay-3">
+        <a href="#download" class="btn btn-primary" id="dl-btn">
+          <span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <span data-i18n="hero.cta">Alaina ny application</span>
+          </span>
+        </a>
+        <a href="#how" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 8.5v7l6-3.5-6-3.5z"/></svg>
+          <span data-i18n="hero.video">Jereo ny video</span>
+        </a>
+      </div>
+      <div class="hero-stats reveal in reveal-delay-4">
+        <div class="hstat">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2L12 16.4 5.7 20.8 8 13.6 2 9.2h7.6z"/></svg></span>
+          <div><b>100%</b><small data-i18n="hero.stat1">Malagasy</small></div>
+        </div>
+        <div class="hstat">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <div><b data-i18n="hero.stat2b">Maimaim-poana</b><small data-i18n="hero.stat2">Azo antoka</small></div>
+        </div>
+        <div class="hstat">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+          <div><b data-i18n="hero.stat3b">Mora</b><small data-i18n="hero.stat3">Hampiasaina</small></div>
+        </div>
+        <div class="hstat">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-6 7-6s7 2.7 7 6"/><circle cx="17" cy="8" r="2.6"/><path d="M15.5 14.2c2.6.3 4.5 2.6 4.5 5.8"/></svg></span>
+          <div><b data-i18n="hero.stat4b">Vondrona</b><small data-i18n="hero.stat4">Mavitrika</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phones reveal in reveal-delay-2">
+      <div class="phone phone-back">
+        <div class="phone-screen"><img src="assets/phone2.png" alt="Trengo menu"></div>
+      </div>
+      <div class="phone phone-front">
+        <div class="phone-screen"><img src="assets/phone1.png" alt="Trengo feed"></div>
+      </div>
+      <div class="float-badge fb-heart">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.7-10-9.3C.4 8.4 2 5 5.4 5c2 0 3.4 1.1 4.6 2.7C11.2 6.1 12.6 5 14.6 5 18 5 19.6 8.4 22 11.7 19.5 16.3 12 21 12 21z"/></svg>
+      </div>
+      <div class="float-badge fb-like">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9 1.5.7c.6.3 1 1 1 1.7v4.6H18a2 2 0 0 1 2 2.4l-1.4 7A2 2 0 0 1 16.6 20H12l-3 2H7z"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2 data-i18n="feat.title">Inona no tena mampiavaka an'i Trengo?</h2>
+      <p data-i18n="feat.sub">Sehatra feno ho an'ny fiainana an-tserasera nomerika Malagasy</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal reveal-delay-1">
+        <span class="feat-ic ic-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7"/><circle cx="17" cy="7" r="3"/><path d="M22 21c0-3-2-5.5-4.5-6.4"/></svg></span>
+        <h3 data-i18n="feat.c1t">Mifandray mora</h3>
+        <p data-i18n="feat.c1p">Miresaka amin'ny namana, fianakaviana ary ny manodidina anao amin'ny chat sy antso maimaim-poana.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <span class="feat-ic ic-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.6" fill="#fff"/><path d="m21 15-4.5-4.5L9 18"/></svg></span>
+        <h3 data-i18n="feat.c2t">Mizara ny fiainanao</h3>
+        <p data-i18n="feat.c2p">Zarao ny sary, video, hevitrao, ary tantaranao amin'ny hafa.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <span class="feat-ic ic-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9 5 3h14l2 6"/><path d="M3 9v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"/><path d="M3 9h18"/><path d="M9 22V13h6v9"/></svg></span>
+        <h3 data-i18n="feat.c3t">Varotra &amp; Marketplace</h3>
+        <p data-i18n="feat.c3p">Mivarotra sy mividy amin'ny marketplace Trengo. Tsotra, haingana ary azo antoka.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-4">
+        <span class="feat-ic ic-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21c0-4.4-3.6-8-8-8s-8 3.6-8 8"/></svg></span>
+        <h3 data-i18n="feat.c4t">Vondrona &amp; Fikambanana</h3>
+        <p data-i18n="feat.c4p">Mamorona na mikatsaka vondrona mifanaraka amin'ny zavatra tianao.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-5">
+        <span class="feat-ic ic-5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3 data-i18n="feat.c5t">Azo antoka</h3>
+        <p data-i18n="feat.c5p">Ny fiarovana no laharam-pahamehana voalohany, ny angonao dia miaro ary tsy amidy.</p>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-ic ic-6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M4 4h5v6H4z" fill="#fff" stroke="none"/></svg></span>
+        <h3 data-i18n="feat.c6t">100% Malagasy</h3>
+        <p data-i18n="feat.c6p">Naorina ho an'ny Malagasy, amin'ny fitenintsika sy ho an'ny kolontsaintsika.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="container">
+    <div class="sec-head dark reveal">
+      <h2 data-i18n="how.title">Ahoana ny fampiasana an'i Trengo?</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">
+          <span class="step-tag">01</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+        </div>
+        <h3 data-i18n="how.s1t">Alao ny APK</h3>
+        <p data-i18n="how.s1p">Tsindrio ny bokotra etsy ambony mba hisintonana ny fichier APK amin'ny findainao.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">
+          <span class="step-tag">02</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </div>
+        <h3 data-i18n="how.s2t">Alefaso ny installation</h3>
+        <p data-i18n="how.s2p">Ao amin'ny findainao, midira ao amin'ny "Paramètres &gt; Sécurité &gt; Sources inconnues" dia avelao.</p>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">
+          <span class="step-tag">03</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        </div>
+        <h3 data-i18n="how.s3t">Apetraho (Installer)</h3>
+        <p data-i18n="how.s3p">Sokafy ny fichier APK nalainao dia tsindrio "Installer" ary andraso kely.</p>
+      </div>
+      <div class="step reveal reveal-delay-4">
+        <div class="step-num">
+          <span class="step-tag">04</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3.1-7 7-7s7 3 7 7"/><path d="M19 8v6"/><path d="M16 11h6"/></svg>
+        </div>
+        <h3 data-i18n="how.s4t">Manorata compte</h3>
+        <p data-i18n="how.s4p">Sokafy Trengo, fenoy ny mombamomba anao ary manomboka mampiasa.</p>
+      </div>
+      <div class="step reveal reveal-delay-5">
+        <div class="step-num">
+          <span class="step-tag">05</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4.5 16.5-2-2 5-5 2 2-5 5z"/><path d="M12 15 8 11l6.5-8.5a4.9 4.9 0 0 1 6 6L12 15z"/><path d="M9 21H3v-6"/></svg>
+        </div>
+        <h3 data-i18n="how.s5t">Ankafizo an'i Trengo</h3>
+        <p data-i18n="how.s5p">Mifandray, mizara, mivarotra ary mankafy ny tambajotra Malagasy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="download">
+  <div class="container cta-grid">
+    <div class="reveal">
+      <div class="cta-phone">
+        <div class="scr"><img class="logo-mark" src="assets/logo.png" alt="Trengo" style="width:64px;height:64px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.35));"></div>
+      </div>
+    </div>
+    <div class="cta-text reveal reveal-delay-1">
+      <h2 data-i18n="cta.title">Vonona ny hiaina traikefa vaovao?</h2>
+      <p data-i18n="cta.p">Tsindrio izao dia midira ao amin'ny tambajotra Malagasy lehibe indrindra!</p>
+      <a href="assets/tsengo.apk" download class="btn btn-primary">
+        <span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-i18n="cta.btn">Alaina ny application Trengo</span>
+        </span>
+      </a>
+      <p class="cta-version" data-i18n="cta.version">Version 1.0.0 — Android 5.0+ · Maimaim-poana · Azo antoka · 100% Malagasy</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=1E1533&data=https://trengo.mg/download" alt="QR Code" width="114" height="114">
+        <span data-i18n="cta.qr">Scan QR Code ho an'ny fisintonana</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo"><img class="logo-mark" src="assets/logo.png" alt="Trengo"><span class="logo-text"><span class="tren">Tren</span><span class="go">go</span></span></a>
+        <p data-i18n="foot.about">Trengo dia tambajotra sosialy Malagasy natao ho an'ny Mifandray, mizara, mivarotra, mifanohana.</p>
+        <div class="social">
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5H17V3.7C16.6 3.6 15.6 3.5 14.5 3.5c-2.3 0-3.9 1.4-3.9 4V10H8v3.1h2.6V21h2.9z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
+          <a href="#" aria-label="Youtube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg></a>
+          <a href="#" aria-label="Tiktok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 3c.3 2 1.7 3.4 3.7 3.6v2.5c-1.3 0-2.6-.4-3.7-1.1V15a5.2 5.2 0 1 1-4.5-5.2v2.6a2.7 2.7 0 1 0 2 2.6V3h2.5z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot.h1">Trengo</h4>
+        <a href="#about" data-i18n="foot.l1">Momba anay</a>
+        <a href="#features" data-i18n="foot.l2">Fahasarobana</a>
+        <a href="#download" data-i18n="foot.l3">Alaina</a>
+        <a href="#" data-i18n="foot.l4">Vaovao</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot.h2">Fanampiana</h4>
+        <a href="#" data-i18n="foot.l5">FAQ</a>
+        <a href="#" data-i18n="foot.l6">Fampiasana APK</a>
+        <a href="#" data-i18n="foot.l7">Politikan'ny fiainana miafina</a>
+        <a href="#" data-i18n="foot.l8">Fepetra fampiasana</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot.h3">Fanohanana</h4>
+        <a href="#contact" data-i18n="foot.l9">Mifandray</a>
+        <a href="#" data-i18n="foot.l10">Milaza olana</a>
+        <a href="#" data-i18n="foot.l11">Foibem-panampiana</a>
+      </div>
+      <div class="news">
+        <h4 data-i18n="foot.h4">Newsletter</h4>
+        <p data-i18n="foot.newsp">Misoratra anarana mba hahazoana ny vaovao farany.</p>
+        <div class="news-form">
+          <input type="email" data-i18n-ph="foot.email" placeholder="Adiresy email-nao">
+          <button type="button" data-i18n="foot.sub">Manoratra</button>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p data-i18n="foot.copy">© 2026 Trengo. Zo rehetra voatokana.</p>
+      <div class="links">
+        <a href="#" data-i18n="foot.priv">Politikan'ny fiainana miafina</a>
+        <a href="#" data-i18n="foot.cond">Fepetra fampiasana</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var dict = {
+    fr:{
+      "nav.home":"Accueil","nav.about":"À propos","nav.features":"Fonctionnalités","nav.download":"Télécharger","nav.help":"Aide","nav.contact":"Contact",
+      "hero.eyebrow":"Réseau social malagasy",
+      "hero.title1":"Trengo, le réseau qui",
+      "hero.title2":"connecte et rassemble",
+      "hero.title3":"les Malagasy.",
+      "hero.lead":"Trengo est un espace où les Malagasy partagent, échangent, vendent et s'entraident, simplement et en toute confiance.",
+      "hero.cta":"Télécharger l'application","hero.video":"Voir la vidéo",
+      "hero.stat1":"Malagasy","hero.stat2b":"Gratuit","hero.stat2":"Sécurisé","hero.stat3b":"Facile","hero.stat3":"À utiliser","hero.stat4b":"Communauté","hero.stat4":"Active",
+      "feat.title":"Qu'est-ce qui rend Trengo unique ?","feat.sub":"Un espace complet pour la vie numérique malagasy",
+      "feat.c1t":"Échanger facilement","feat.c1p":"Discutez avec vos proches, votre famille et votre entourage par chat et appels gratuits.",
+      "feat.c2t":"Partager votre vie","feat.c2p":"Partagez vos photos, vidéos, idées et vos histoires avec les autres.",
+      "feat.c3t":"Achats & Marketplace","feat.c3p":"Achetez et vendez sur la marketplace Trengo. Simple, rapide et fiable.",
+      "feat.c4t":"Groupes & Communautés","feat.c4p":"Créez ou rejoignez des groupes qui vous correspondent.",
+      "feat.c5t":"Sécurisé","feat.c5p":"La sécurité est notre priorité, vos données sont protégées et jamais vendues.",
+      "feat.c6t":"100% Malagasy","feat.c6p":"Conçu pour les Malagasy, dans notre langue et pour notre culture.",
+      "how.title":"Comment utiliser Trengo ?",
+      "how.s1t":"Téléchargez l'APK","how.s1p":"Cliquez sur le bouton ci-dessus pour télécharger le fichier APK sur votre téléphone.",
+      "how.s2t":"Autorisez l'installation","how.s2p":"Sur votre téléphone, allez dans « Paramètres > Sécurité > Sources inconnues » puis autorisez.",
+      "how.s3t":"Installez l'application","how.s3p":"Ouvrez le fichier APK téléchargé, appuyez sur « Installer » et patientez.",
+      "how.s4t":"Créez un compte","how.s4p":"Ouvrez Trengo, complétez votre profil et commencez à l'utiliser.",
+      "how.s5t":"Profitez de Trengo","how.s5p":"Échangez, partagez, vendez et profitez du réseau malagasy.",
+      "cta.title":"Prêt à vivre une nouvelle expérience ?","cta.p":"Cliquez maintenant pour rejoindre le plus grand réseau social malagasy !",
+      "cta.btn":"Télécharger l'application Trengo","cta.version":"Version 1.0.0 — Android 5.0+ · Gratuit · Sécurisé · 100% Malagasy","cta.qr":"Scannez le QR Code pour télécharger",
+      "foot.about":"Trengo est un réseau social malagasy pour échanger, partager, vendre et s'entraider.",
+      "foot.h1":"Trengo","foot.l1":"À propos","foot.l2":"Fonctionnalités","foot.l3":"Télécharger","foot.l4":"Actualités",
+      "foot.h2":"Aide","foot.l5":"FAQ","foot.l6":"Installer l'APK","foot.l7":"Politique de confidentialité","foot.l8":"Conditions d'utilisation",
+      "foot.h3":"Support","foot.l9":"Contact","foot.l10":"Signaler un problème","foot.l11":"Centre d'aide",
+      "foot.h4":"Newsletter","foot.newsp":"Inscrivez-vous pour recevoir les dernières nouveautés.","foot.email":"Votre adresse email","foot.sub":"S'abonner",
+      "foot.copy":"© 2026 Trengo. Tous droits réservés.","foot.priv":"Politique de confidentialité","foot.cond":"Conditions d'utilisation"
+    }
+  };
+
+  var mgOriginal = {};
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    mgOriginal[el.getAttribute("data-i18n")] = el.textContent;
+  });
+  var mgPh = {};
+  document.querySelectorAll("[data-i18n-ph]").forEach(function(el){
+    mgPh[el.getAttribute("data-i18n-ph")] = el.getAttribute("placeholder");
+  });
+
+  function setLang(lang){
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      el.textContent = (lang === "fr" && dict.fr[key]) ? dict.fr[key] : mgOriginal[key];
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-ph");
+      el.setAttribute("placeholder", (lang === "fr" && dict.fr[key]) ? dict.fr[key] : mgPh[key]);
+    });
+    document.documentElement.setAttribute("lang", lang);
+    document.querySelectorAll(".lang-toggle button").forEach(function(b){
+      b.classList.toggle("on", b.getAttribute("data-lang") === lang);
+    });
+  }
+
+  document.querySelectorAll(".lang-toggle button").forEach(function(btn){
+    btn.addEventListener("click", function(){ setLang(btn.getAttribute("data-lang")); });
+  });
+
+  // scroll reveal
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll(".reveal:not(.in)").forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
