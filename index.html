@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trengo — Ny tambajotra mifandray sy mampifandray Malagasy</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --purple:#7C3AED;
@@ -11,16 +16,18 @@
     --pink:#EC4899;
     --pink-light:#F472B6;
     --blue:#4F46E5;
+    --brand-blue:#2E5BFF;
+    --brand-pink:#F0308C;
     --ink:#1E1533;
     --ink-soft:#4B4460;
     --muted:#6B7280;
     --cloud:#F7F5FC;
     --line:#ECE8F5;
     --white:#ffffff;
-    --grad-brand:linear-gradient(135deg,var(--purple) 0%,var(--pink) 100%);
+    --grad-brand:linear-gradient(120deg,var(--brand-blue) 0%,var(--purple) 52%,var(--brand-pink) 100%);
     --grad-section:linear-gradient(135deg,#4338CA 0%,#6D28D9 55%,#7C3AED 100%);
     --grad-cta:radial-gradient(circle at 20% 20%,#3B2E6B 0%,#1B1030 55%,#120A22 100%);
-    --shadow-soft:0 10px 30px -12px rgba(124,58,237,.25);
+    --shadow-soft:0 10px 30px -12px rgba(124,58,237,.28);
     --shadow-card:0 4px 18px rgba(30,21,51,.06);
     --radius:20px;
   }
@@ -29,7 +36,7 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    font-family:"Sora","Segoe UI",system-ui,sans-serif;
+    font-family:"Manrope","Segoe UI",system-ui,sans-serif;
     color:var(--ink);
     background:var(--white);
     -webkit-font-smoothing:antialiased;
@@ -63,32 +70,42 @@
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
   }
-  .nav{display:flex;align-items:center;justify-content:space-between;height:78px;}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:86px;gap:20px;}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:22px;flex-shrink:0;}
   .logo-mark{
-    width:38px;height:38px;border-radius:11px;
-    background:var(--grad-brand);
-    display:flex;align-items:center;justify-content:center;
-    color:#fff;font-size:19px;font-weight:800;
-    box-shadow:var(--shadow-soft);
+    width:38px;height:38px;object-fit:contain;
+    filter:drop-shadow(0 4px 10px rgba(124,58,237,.35));
+    transition:transform .4s cubic-bezier(.16,.8,.28,1);
   }
-  .logo-text b{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .navlinks{display:flex;align-items:center;gap:36px;}
+  .logo:hover .logo-mark{transform:rotate(-8deg) scale(1.06);}
+  .logo-text{font-family:"Sora",system-ui,sans-serif;}
+  .logo-text .tren{color:var(--brand-blue);}
+  .logo-text .go{color:var(--brand-pink);}
+  .navlinks{
+    display:flex;align-items:center;gap:8px;
+    overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 20px,#000 calc(100% - 20px),transparent);
+    mask-image:linear-gradient(to right,transparent,#000 20px,#000 calc(100% - 20px),transparent);
+  }
+  .navlinks::-webkit-scrollbar{display:none;}
   .navlinks a{
-    font-size:15px;font-weight:600;color:var(--ink-soft);
-    position:relative; padding:6px 0;
-    transition:color .25s ease;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    font-size:12px;font-weight:700;color:var(--ink-soft);
+    padding:9px 15px;border-radius:14px;flex-shrink:0;
+    transition:color .25s ease,background .25s ease;
+    letter-spacing:.01em;
   }
-  .navlinks a::after{
-    content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;
-    background:var(--grad-brand);transition:width .3s ease;border-radius:2px;
+  .navlinks a svg{
+    width:22px;height:22px;stroke:url(#navGrad);
+    filter:drop-shadow(0 0 5px rgba(124,58,237,.0));
+    transition:filter .3s ease,transform .3s ease;
   }
-  .navlinks a:hover{color:var(--ink);}
-  .navlinks a:hover::after{width:100%;}
-  .navlinks a.active{color:var(--purple);}
-  .navlinks a.active::after{width:100%;}
+  .navlinks a:hover{color:var(--ink);background:var(--cloud);}
+  .navlinks a:hover svg{filter:drop-shadow(0 0 7px rgba(124,58,237,.55));transform:translateY(-1px);}
+  .navlinks a.active{color:var(--purple);background:#F3ECFC;}
+  .navlinks a.active svg{filter:drop-shadow(0 0 8px rgba(124,58,237,.6));}
 
-  .nav-right{display:flex;align-items:center;gap:14px;}
+  .nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
   .lang-toggle{
     display:flex;align-items:center;background:var(--cloud);
     border:1px solid var(--line); border-radius:999px; padding:4px; gap:2px;
@@ -98,10 +115,6 @@
     color:var(--muted); transition:all .3s cubic-bezier(.16,.8,.28,1);
   }
   .lang-toggle button.on{background:var(--grad-brand);color:#fff;box-shadow:var(--shadow-soft);}
-
-  .burger{display:none;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center;background:var(--cloud);}
-  .burger span, .burger::before, .burger::after{content:"";display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;}
-  .burger{flex-direction:column;gap:4px;}
 
   /* ---------- buttons ---------- */
   .btn{
@@ -116,12 +129,18 @@
   }
   .btn-primary::before{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(135deg,var(--pink) 0%,var(--purple) 100%);
+    background:linear-gradient(120deg,var(--brand-pink) 0%,var(--purple) 50%,var(--brand-blue) 100%);
     opacity:0; transition:opacity .35s ease;
+  }
+  .btn-primary::after{
+    content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
+    transform:skewX(-20deg);transition:left .65s cubic-bezier(.16,.8,.28,1);z-index:2;
   }
   .btn-primary span{position:relative;z-index:1;display:flex;align-items:center;gap:8px;}
   .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 34px -10px rgba(124,58,237,.45);}
   .btn-primary:hover::before{opacity:1;}
+  .btn-primary:hover::after{left:130%;}
   .btn-primary:active{transform:translateY(-1px) scale(.98);}
 
   .btn-outline{
@@ -130,10 +149,16 @@
   .btn-outline:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-3px);box-shadow:0 10px 24px -12px rgba(124,58,237,.3);}
 
   /* ---------- hero ---------- */
-  .hero{position:relative;padding:88px 0 60px;overflow:hidden;}
+  .hero{
+    position:relative;padding:100px 0 70px;overflow:hidden;
+    background:
+      linear-gradient(100deg,rgba(10,7,22,.93) 0%,rgba(20,13,42,.82) 34%,rgba(35,20,60,.5) 58%,rgba(35,20,60,.28) 100%),
+      url("assets/hero-bg.jpg") center 22%/cover no-repeat;
+    aspect-ratio:16/9;min-height:640px;
+  }
   .hero-blob{
     position:absolute;border-radius:50%;filter:blur(6px);
-    background:radial-gradient(circle,rgba(236,72,153,.16),rgba(124,58,237,.10) 60%,transparent 75%);
+    background:radial-gradient(circle,rgba(236,72,153,.22),rgba(46,91,255,.14) 60%,transparent 75%);
     width:640px;height:640px;top:-160px;right:-140px;z-index:0;
     animation:float-slow 9s ease-in-out infinite;
   }
@@ -142,24 +167,26 @@
 
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
-    padding:8px 16px;border-radius:999px;background:#F3ECFC;color:var(--purple);
+    padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.1);color:#fff;
+    border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(6px);
     font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
     margin-bottom:22px;
   }
-  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pink);}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand-pink);}
 
-  .hero h1{font-size:47px;line-height:1.14;font-weight:800;color:var(--ink);margin-bottom:22px;}
+  .hero h1{font-size:47px;line-height:1.14;font-weight:800;color:#fff;margin-bottom:22px;text-shadow:0 2px 30px rgba(0,0,0,.25);}
   .hero h1 .grad{background:var(--grad-brand);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .hero p.lead{font-size:17px;line-height:1.7;color:var(--ink-soft);max-width:480px;margin-bottom:34px;}
+  .hero p.lead{font-size:17px;line-height:1.7;color:rgba(255,255,255,.82);max-width:480px;margin-bottom:34px;}
   .hero-actions{display:flex;gap:16px;margin-bottom:44px;flex-wrap:wrap;}
   .hero-stats{display:flex;gap:34px;flex-wrap:wrap;}
   .hstat{display:flex;align-items:center;gap:10px;}
   .hstat .ic{
-    width:38px;height:38px;border-radius:11px;background:#F3ECFC;color:var(--purple);
+    width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.12);color:#fff;
+    border:1px solid rgba(255,255,255,.15);
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
-  .hstat b{display:block;font-size:14px;color:var(--ink);font-weight:700;}
-  .hstat small{display:block;font-size:12.5px;color:var(--muted);}
+  .hstat b{display:block;font-size:14px;color:#fff;font-weight:700;}
+  .hstat small{display:block;font-size:12.5px;color:rgba(255,255,255,.65);}
 
   /* ---------- phone mockups ---------- */
   .phones{position:relative;height:560px;display:flex;align-items:center;justify-content:center;}
@@ -202,28 +229,39 @@
   .sec-head.dark h2{color:var(--ink);}
   .sec-head.dark p{color:var(--muted);}
 
-  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;z-index:1;}
+  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;z-index:1;}
   .feat-card{
-    background:#fff;border-radius:var(--radius);padding:32px 26px;
+    background:#fff;border-radius:var(--radius);padding:34px 28px;
     box-shadow:var(--shadow-card);
-    transition:transform .4s cubic-bezier(.16,.8,.28,1), box-shadow .4s ease;
+    position:relative;isolation:isolate;
+    transition:transform .45s cubic-bezier(.16,.8,.28,1), box-shadow .45s ease;
   }
-  .feat-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px -14px rgba(20,10,40,.35);}
+  .feat-card::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+    background:var(--grad-brand);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    opacity:0;transition:opacity .45s ease;pointer-events:none;z-index:-1;
+  }
+  .feat-card:hover{transform:translateY(-8px);box-shadow:0 24px 46px -16px rgba(20,10,40,.28);}
+  .feat-card:hover::after{opacity:1;}
   .feat-ic{
     width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
     margin-bottom:18px; color:#fff;
-    transition:transform .4s cubic-bezier(.16,.8,.28,1);
+    transition:transform .4s cubic-bezier(.16,.8,.28,1), box-shadow .4s ease;
   }
   .feat-card:hover .feat-ic{transform:scale(1.1) rotate(-4deg);}
   .feat-card h3{font-size:17px;margin-bottom:8px;}
   .feat-card p{font-size:13.5px;color:var(--muted);line-height:1.6;}
 
-  .ic-1{background:linear-gradient(135deg,#8B5CF6,#6D28D9);}
-  .ic-2{background:linear-gradient(135deg,#EC4899,#DB2777);}
-  .ic-3{background:linear-gradient(135deg,#F59E0B,#D97706);}
-  .ic-4{background:linear-gradient(135deg,#6366F1,#4F46E5);}
-  .ic-5{background:linear-gradient(135deg,#3B82F6,#2563EB);}
-  .ic-6{background:linear-gradient(135deg,#059669,#047857);}
+  .ic-1{background:linear-gradient(135deg,#8B5CF6,#6D28D9);box-shadow:0 10px 22px -8px rgba(124,58,237,.5);}
+  .ic-2{background:linear-gradient(135deg,#EC4899,#DB2777);box-shadow:0 10px 22px -8px rgba(219,39,119,.5);}
+  .ic-3{background:linear-gradient(135deg,#F59E0B,#D97706);box-shadow:0 10px 22px -8px rgba(217,119,6,.5);}
+  .ic-4{background:linear-gradient(135deg,#6366F1,#4F46E5);box-shadow:0 10px 22px -8px rgba(79,70,229,.5);}
+  .ic-5{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 10px 22px -8px rgba(37,99,235,.5);}
+  .ic-6{background:linear-gradient(135deg,#059669,#047857);box-shadow:0 10px 22px -8px rgba(4,120,87,.5);}
+  .ic-7{background:linear-gradient(135deg,#F472B6,#EC4899);box-shadow:0 10px 22px -8px rgba(236,72,153,.5);}
+  .ic-8{background:linear-gradient(135deg,#2E5BFF,#1E40AF);box-shadow:0 10px 22px -8px rgba(30,64,175,.5);}
 
   /* ---------- how it works ---------- */
   .how{padding:100px 0;}
@@ -268,7 +306,6 @@
     animation:float-slow 7s ease-in-out infinite;
   }
   .cta-phone .scr{width:100%;height:340px;border-radius:22px;background:var(--grad-brand);display:flex;align-items:center;justify-content:center;}
-  .cta-phone .scr .logo-mark{width:56px;height:56px;font-size:26px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);}
   .cta-text{text-align:center;}
   .cta-text h2{color:#fff;font-size:32px;font-weight:800;margin-bottom:14px;}
   .cta-text p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:30px;line-height:1.7;}
@@ -314,6 +351,7 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:980px){
+    .hero{aspect-ratio:auto;min-height:auto;}
     .hero-grid{grid-template-columns:1fr;}
     .phones{height:420px;margin-top:20px;}
     .phone{width:200px;}
@@ -329,8 +367,12 @@
   }
   @media (max-width:720px){
     .container{padding:0 20px;}
-    .navlinks{display:none;}
-    .burger{display:flex;}
+    .nav{flex-wrap:wrap;height:auto;padding:14px 0 10px;row-gap:10px;overflow:visible;}
+    .logo{order:1;}
+    .nav-right{order:2;}
+    .navlinks{order:3;flex-basis:100%;width:100%;gap:2px;justify-content:flex-start;}
+    .navlinks a{font-size:9.5px;padding:6px 10px;}
+    .navlinks a svg{width:18px;height:18px;}
     .hero{padding:40px 0 40px;}
     .hero h1{font-size:33px;}
     .hero-stats{gap:20px;}
@@ -343,26 +385,53 @@
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2E5BFF"/>
+      <stop offset="55%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#F0308C"/>
+    </linearGradient>
+  </defs>
+</svg>
+
 <header>
   <div class="container nav">
     <a href="#" class="logo">
-      <span class="logo-mark">T</span>
-      <span class="logo-text"><b>Tren</b>go</span>
+      <img class="logo-mark" src="assets/logo.png" alt="Trengo">
+      <span class="logo-text"><span class="tren">Tren</span><span class="go">go</span></span>
     </a>
     <nav class="navlinks">
-      <a href="#" class="active" data-i18n="nav.home">Fandraisana</a>
-      <a href="#about" data-i18n="nav.about">Momba anay</a>
-      <a href="#features" data-i18n="nav.features">Fahasarobana</a>
-      <a href="#download" data-i18n="nav.download">Alaina</a>
-      <a href="#help" data-i18n="nav.help">Fanampiana</a>
-      <a href="#contact" data-i18n="nav.contact">Mifandray</a>
+      <a href="#" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
+        <span data-i18n="nav.home">Fandraisana</span>
+      </a>
+      <a href="#about">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r=".6" fill="url(#navGrad)" stroke="none"/></svg>
+        <span data-i18n="nav.about">Momba anay</span>
+      </a>
+      <a href="#features">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><rect x="7" y="7" width="10" height="10" rx="3"/></svg>
+        <span data-i18n="nav.features">Fahasarobana</span>
+      </a>
+      <a href="#download">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span data-i18n="nav.download">Alaina</span>
+      </a>
+      <a href="#help">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 0 1 4.9.8c0 1.7-2.4 2-2.4 3.5"/><circle cx="12" cy="17" r=".6" fill="url(#navGrad)" stroke="none"/></svg>
+        <span data-i18n="nav.help">Fanampiana</span>
+      </a>
+      <a href="#contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+        <span data-i18n="nav.contact">Mifandray</span>
+      </a>
     </nav>
     <div class="nav-right">
       <div class="lang-toggle" role="group" aria-label="Fiteny / Langue">
         <button type="button" class="on" data-lang="mg">MG</button>
         <button type="button" data-lang="fr">FR</button>
       </div>
-      <button class="burger" aria-label="menu"><span></span></button>
     </div>
   </div>
 </header>
@@ -414,7 +483,7 @@
 
     <div class="phones reveal in reveal-delay-2">
       <div class="phone phone-back">
-        <div class="phone-screen"><img src="assets/phone2.png" alt="Trengo menu"></div>
+        <div class="phone-screen"><img src="assets/phone3.png" alt="Trengo boutique"></div>
       </div>
       <div class="phone phone-front">
         <div class="phone-screen"><img src="assets/phone1.png" alt="Trengo feed"></div>
@@ -465,6 +534,16 @@
         <span class="feat-ic ic-6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M4 4h5v6H4z" fill="#fff" stroke="none"/></svg></span>
         <h3 data-i18n="feat.c6t">100% Malagasy</h3>
         <p data-i18n="feat.c6p">Naorina ho an'ny Malagasy, amin'ny fitenintsika sy ho an'ny kolontsaintsika.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <span class="feat-ic ic-7"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9 5 3h14l2 6"/><path d="M3 9v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"/><path d="M9 21v-5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v5"/></svg></span>
+        <h3 data-i18n="feat.c7t">Kanaly Boutique</h3>
+        <p data-i18n="feat.c7p">Manangana ny "boutique" manokana ianao, mampiseho ny entana, ary mahazo mpanaraka sy mpividy mivantana ao anaty Trengo.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <span class="feat-ic ic-8"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></span>
+        <h3 data-i18n="feat.c8t">Kanaly Artista</h3>
+        <p data-i18n="feat.c8p">Ho an'ny mpanakanto: manangana pejy Artista, mizara ny asanao, ary mifandray mivantana amin'ny mpankafy anao.</p>
       </div>
     </div>
   </div>
@@ -524,7 +603,7 @@
   <div class="container cta-grid">
     <div class="reveal">
       <div class="cta-phone">
-        <div class="scr"><span class="logo-mark">T</span></div>
+        <div class="scr"><img class="logo-mark" src="assets/logo.png" alt="Trengo" style="width:64px;height:64px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.35));"></div>
       </div>
     </div>
     <div class="cta-text reveal reveal-delay-1">
@@ -551,7 +630,7 @@
   <div class="container">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="#" class="logo"><span class="logo-mark">T</span><span class="logo-text"><b>Tren</b>go</span></a>
+        <a href="#" class="logo"><img class="logo-mark" src="assets/logo.png" alt="Trengo"><span class="logo-text"><span class="tren">Tren</span><span class="go">go</span></span></a>
         <p data-i18n="foot.about">Trengo dia tambajotra sosialy Malagasy natao ho an'ny Mifandray, mizara, mivarotra, mifanohana.</p>
         <div class="social">
           <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5H17V3.7C16.6 3.6 15.6 3.5 14.5 3.5c-2.3 0-3.9 1.4-3.9 4V10H8v3.1h2.6V21h2.9z"/></svg></a>
@@ -618,6 +697,8 @@
       "feat.c4t":"Groupes & Communautés","feat.c4p":"Créez ou rejoignez des groupes qui vous correspondent.",
       "feat.c5t":"Sécurisé","feat.c5p":"La sécurité est notre priorité, vos données sont protégées et jamais vendues.",
       "feat.c6t":"100% Malagasy","feat.c6p":"Conçu pour les Malagasy, dans notre langue et pour notre culture.",
+      "feat.c7t":"Canal Boutique","feat.c7p":"Créez votre propre boutique, présentez vos articles, et gagnez des abonnés et des acheteurs directement dans Trengo.",
+      "feat.c8t":"Canal Artiste","feat.c8p":"Pour les artistes : créez votre page Artiste, partagez vos œuvres et échangez directement avec vos fans.",
       "how.title":"Comment utiliser Trengo ?",
       "how.s1t":"Téléchargez l'APK","how.s1p":"Cliquez sur le bouton ci-dessus pour télécharger le fichier APK sur votre téléphone.",
       "how.s2t":"Autorisez l'installation","how.s2p":"Sur votre téléphone, allez dans « Paramètres > Sécurité > Sources inconnues » puis autorisez.",
