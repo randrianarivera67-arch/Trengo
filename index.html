@@ -287,7 +287,25 @@
   .step h3{font-size:15px;margin-bottom:8px;}
   .step p{font-size:12.5px;color:var(--muted);line-height:1.6;}
 
-  /* ---------- CTA ---------- */
+  /* ---------- lifestyle ---------- */
+  .life{padding:90px 0;background:var(--cloud);}
+  .life-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .life-card{
+    position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;
+    box-shadow:0 20px 44px -18px rgba(30,21,51,.28);
+    transition:transform .5s cubic-bezier(.16,.8,.28,1), box-shadow .5s ease;
+  }
+  .life-card:hover{transform:translateY(-8px);box-shadow:0 28px 56px -18px rgba(30,21,51,.4);}
+  .life-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .life-card:hover img{transform:scale(1.05);}
+  .life-card::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg,rgba(10,7,20,.82) 0%,rgba(10,7,20,.15) 45%,transparent 65%);
+  }
+  .life-cap{position:absolute;left:24px;right:24px;bottom:24px;z-index:1;color:#fff;}
+  .life-cap b{display:block;font-family:"Sora",sans-serif;font-size:19px;margin-bottom:6px;}
+  .life-cap span{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.55;}
+  @media (max-width:720px){.life-grid{grid-template-columns:1fr;}}
   .cta{background:var(--grad-cta);padding:100px 0;position:relative;overflow:hidden;}
   .cta::before{
     content:"";position:absolute;inset:0;background-image:
@@ -305,7 +323,8 @@
     box-shadow:0 30px 60px -14px rgba(0,0,0,.6);
     animation:float-slow 7s ease-in-out infinite;
   }
-  .cta-phone .scr{width:100%;height:340px;border-radius:22px;background:var(--grad-brand);display:flex;align-items:center;justify-content:center;}
+  .cta-phone .phone-screen{width:100%;height:360px;border-radius:22px;overflow:hidden;}
+  .cta-phone .phone-screen img{width:100%;height:100%;object-fit:cover;object-position:top;}
   .cta-text{text-align:center;}
   .cta-text h2{color:#fff;font-size:32px;font-weight:800;margin-bottom:14px;}
   .cta-text p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:30px;line-height:1.7;}
@@ -599,11 +618,36 @@
   </div>
 </section>
 
+<section class="life">
+  <div class="container">
+    <div class="sec-head dark reveal">
+      <h2 data-i18n="life.title">Fiainana miaraka amin'i Trengo</h2>
+      <p data-i18n="life.sub">Na aiza na aiza ianao, ao Trengo foana ny fifandraisana amin'ny Malagasy</p>
+    </div>
+    <div class="life-grid">
+      <div class="life-card reveal reveal-delay-1">
+        <img src="assets/life-1.jpg" alt="Trengo lifestyle">
+        <div class="life-cap">
+          <b data-i18n="life.c1t">Mifandray na aiza na aiza</b>
+          <span data-i18n="life.c1p">Na any an-tanàn-dehibe na any ivelan'i Madagasikara, Trengo dia manakaiky anao amin'ny fianakavianao sy ny namanao.</span>
+        </div>
+      </div>
+      <div class="life-card reveal reveal-delay-2">
+        <img src="assets/life-2.jpg" alt="Trengo lifestyle">
+        <div class="life-cap">
+          <b data-i18n="life.c2t">Ny community mavitrika</b>
+          <span data-i18n="life.c2p">Story, fanaovan-gazety, ary fifandraisana isan'andro miaraka amin'ny mpampiasa Trengo any amin'izao tontolo izao.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="cta" id="download">
   <div class="container cta-grid">
     <div class="reveal">
       <div class="cta-phone">
-        <div class="scr"><img class="logo-mark" src="assets/logo.png" alt="Trengo" style="width:64px;height:64px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.35));"></div>
+        <div class="phone-screen"><img src="assets/phone1.png" alt="Trengo"></div>
       </div>
     </div>
     <div class="cta-text reveal reveal-delay-1">
@@ -705,6 +749,9 @@
       "how.s3t":"Installez l'application","how.s3p":"Ouvrez le fichier APK téléchargé, appuyez sur « Installer » et patientez.",
       "how.s4t":"Créez un compte","how.s4p":"Ouvrez Trengo, complétez votre profil et commencez à l'utiliser.",
       "how.s5t":"Profitez de Trengo","how.s5p":"Échangez, partagez, vendez et profitez du réseau malagasy.",
+      "life.title":"La vie avec Trengo","life.sub":"Où que vous soyez, Trengo vous garde connecté aux Malagasy",
+      "life.c1t":"Connecté, où que vous soyez","life.c1p":"En ville ou à l'étranger, Trengo vous rapproche de votre famille et de vos amis.",
+      "life.c2t":"Une communauté active","life.c2p":"Stories, publications et échanges quotidiens avec les utilisateurs Trengo du monde entier.",
       "cta.title":"Prêt à vivre une nouvelle expérience ?","cta.p":"Cliquez maintenant pour rejoindre le plus grand réseau social malagasy !",
       "cta.btn":"Télécharger l'application Trengo","cta.version":"Version 1.0.0 — Android 5.0+ · Gratuit · Sécurisé · 100% Malagasy","cta.qr":"Scannez le QR Code pour télécharger",
       "foot.about":"Trengo est un réseau social malagasy pour échanger, partager, vendre et s'entraider.",
