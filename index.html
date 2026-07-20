@@ -33,14 +33,13 @@
   }
 
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;overscroll-behavior-x:contain;overflow-x:hidden;width:100%;}
+  html{scroll-behavior:smooth;overscroll-behavior-x:contain;width:100%;}
   body{
     margin:0;
     font-family:"Manrope","Segoe UI",system-ui,sans-serif;
     color:var(--ink);
     background:var(--white);
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
   }
   h1,h2,h3{font-family:"Sora",system-ui,sans-serif; margin:0; letter-spacing:-0.02em;}
   p{margin:0;}
@@ -465,6 +464,7 @@
   </div>
 </header>
 
+<main style="overflow-x:hidden;">
 <section class="hero">
   <div class="hero-blob"></div>
   <div class="container hero-grid">
@@ -727,6 +727,7 @@
     </div>
   </div>
 </footer>
+</main>
 
 <script>
 (function(){
