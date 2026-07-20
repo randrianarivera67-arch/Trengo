@@ -69,10 +69,8 @@
     background:rgba(255,255,255,.86);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
-    transform:translateY(0);
-    transition:transform .35s cubic-bezier(.16,.8,.28,1), box-shadow .35s ease;
+    transition:box-shadow .35s ease;
   }
-  header.hide{transform:translateY(-100%);}
   header.shadow{box-shadow:0 8px 24px -12px rgba(30,21,51,.18);}
   .nav{display:flex;align-items:center;justify-content:space-between;height:86px;gap:20px;overflow-x:hidden;max-width:100%;}
   .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:22px;flex-shrink:0;}
@@ -805,23 +803,10 @@
   },{threshold:.15});
   document.querySelectorAll(".reveal:not(.in)").forEach(function(el){ io.observe(el); });
 
-  // header drawer: hide on scroll down, reveal on scroll up
+  // topbar tsy mihetsika mihitsy — misy shadow malefaka fotsiny rehefa scroll
   var headerEl = document.querySelector("header");
-  var lastY = window.scrollY;
-  var ticking = false;
-  function onScroll(){
-    var y = window.scrollY;
-    if (y > 120 && y > lastY) {
-      headerEl.classList.add("hide");
-    } else {
-      headerEl.classList.remove("hide");
-    }
-    headerEl.classList.toggle("shadow", y > 8);
-    lastY = y;
-    ticking = false;
-  }
   window.addEventListener("scroll", function(){
-    if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+    headerEl.classList.toggle("shadow", window.scrollY > 8);
   }, {passive:true});
 })();
 </script>
